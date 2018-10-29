@@ -49,7 +49,7 @@ See the [OpenVX documentation](https://www.khronos.org/registry/OpenVX/specs/1.0
      make
 
 ### Usage
-     Usage: ./DGtest <weights.bin> <input-tensor> <output-tensor> <labels.txt> <imagetag.txt> \n"
+     Usage: ./DGtest [weights.bin] [input-tensor] [output-tensor] [labels.txt] [imagetag.txt] \n"
      
      1. [weights.bin]
          The name of the weights file to be used for the inference. It is created by running caffemodel converter.
@@ -94,7 +94,7 @@ You can test your own trained MNIST caffemodel using the [model compiler](https:
          make
          
 ### Example
-    ./ParseDigit ../Examples/image.jpg ../Examples/Cropped/ digits
+    ./DGtest ../Examples/image.jpg ../Examples/Cropped/ digits
     
     The output images will be stored in ../Examples/Cropped folder as digits001-1.jpg, digits001-2.jpg, ... digits009-5.jpg.
     Make sure the destination folder is created before running the program.
