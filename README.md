@@ -10,7 +10,7 @@ The detailed explanation of preprocessing the images can be found at http://open
 
 ### Pre-requisites
 1. ubuntu 16.04
-2. [rocm supported hardware](https://github.io/hardware.html)
+2. [rocm supported hardware](https://rocm.github.io/hardware.html)
 3. [rocm](https://github.com/RadeonOpenCompute/ROCm#installing-from-amd-rocm-repositories)
 4. [MIOpen](https://github.com/ROCmSoftwarePlatform/MIOpen) with OpenCL backend
    Alternatively, you can simply run the [radeonInferenceInstaller](https://github.com/kiritigowda/help/tree/master/radeonInferenceInstaller#installer) which will install all the dependencies for MIOpen
