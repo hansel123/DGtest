@@ -1,13 +1,13 @@
 # AMD DGtest
 
-The AMD DGtest is a tutorial program for those who are new to MIOpen & OpenVX. It runs inference on the [MNIST](http://yann.lecun.com/exdb/mnist/) dataset using MIOpen & OpenVx.
+The AMD DGtest is a tutorial program for those who are new to MIOpen & OpenVX. It runs inference on the [MNIST](http://yann.lecun.com/exdb/mnist/) dataset using MIOpen & OpenVX.
 
 ### Explanation
-The program is divided into four parts :
+The program is divided into four parts:
 
 ##### 1. annmodule
 
-annmodule is created by the AMD model compiler. You can convert your own trained caffemodel to openvx graph using the model   compiler. See the below section for the detailed instruction.
+annmodule is created by the AMD model compiler. You can convert your own trained caffemodel to openvx graph using the model-compiler. See the below section for the detailed instruction.
 Once the conversion is done, the corresponding c++ codes will be generated including annmodule which contains the information about your pre-trained caffemodel.
 
 ##### 2. VXtensor
@@ -27,7 +27,7 @@ If it was successful, it will go ahead and process the graph (runs the inference
 Argmax class is used to read the output tensor and print out the result so that one can actually see the accuracy & performance. 
 It will calculate the maximum probability from the output tensor and return the corresponding label from the label text file.
 
-See the [OpenVX documentation](https://www.khronos.org/registry/OpenVX/specs/1.0/html/index.html) for detailed explnation about OpenVX API calls.
+See the [OpenVX documentation](https://www.khronos.org/registry/OpenVX/specs/1.0/html/index.html) for detailed explanation about OpenVX API calls.
 
 ### Pre-requisites
 1. ubuntu 16.04
