@@ -32,6 +32,7 @@ The detailed explanation of preprocessing the images can be found at http://open
      
      1. [weights.bin]
          The name of the weights file to be used for the inference. It is created by running caffemodel converter.
+         See the belows section for using your own caffemodel.
      2. [input-tensor]
          The name of the input tensor to run the inference on. It is created by the img2tensor.py
      3. [output-tensor]
@@ -56,11 +57,13 @@ After the image preparation is done, convert it to a tensor using the python scr
               The name of the tensor that will be created.
      
 ### Testing with your own Caffemodel
-    You can test your own trained MNIST caffemodel using the [model compiler](https://github.com/GPUOpen-ProfessionalCompute-Libraries/amdovx-modules/tree/develop/utils/model_compiler)
+
+You can test your own trained MNIST caffemodel using the [model compiler](https://github.com/GPUOpen-ProfessionalCompute-Libraries/amdovx-modules/tree/develop/utils/model_compiler)
     
     1. Convert your caffemodel->NNIR->openvx using the model compiler.
     2. From the generated files, copy 
-    
+        
+         cmake folder
          annmodule.cpp
          annmodule.h
          weights.bin
