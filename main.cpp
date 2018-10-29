@@ -6,7 +6,7 @@
 int main(int argc, const char ** argv)
 {
    // check command-line usage
-    if(argc < 6) {
+    if(argc != 6) {
         printf(
             "\n"
             "Usage: DGtest [weights.bin] [input-tensor] [output-tensor] [labels.txt] [imagetag.txt]\n"
@@ -19,7 +19,7 @@ int main(int argc, const char ** argv)
             "\n"
             "   <labels.txt>: is the text file containing the labels of each classes\n"
             "\n"
-            "   <iamgetag.txt>: is the text file contaning each images' directories\n"
+            "   <imagetag.txt>: is the text file contaning each images' directories\n"
             "\n"
         );
         return -1;
