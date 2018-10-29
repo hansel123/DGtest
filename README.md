@@ -15,8 +15,9 @@ The detailed explanation of preprocessing the images can be found at http://open
 4. [MIOpen](https://github.com/ROCmSoftwarePlatform/MIOpen) with OpenCL backend
    Alternatively, you can simply run the [radeonInferenceInstaller](https://github.com/kiritigowda/help/tree/master/radeonInferenceInstaller#installer) which will install all the dependencies for MIOpen
 5. [OpenCV 3.1](https://opencv.org/opencv-3-1.html) or higher
-6. cmake git 
-     sudo apt-get install cmake git
+6. cmake git
+
+       sudo apt-get install cmake git
 
 ### Build using Cmake on Linux (Ubuntu 16.04 64bit)
      git clone https://github.com/hansely/DGtest.git
