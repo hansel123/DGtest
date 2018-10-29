@@ -7,18 +7,10 @@
 
 int Argmax::mCount = 0;
 
-Argmax::Argmax(const char* fileName, const std::string labelName, const std::string tagName) {
-    mFile = fopen(fileName, "rb");
-    if (!mFile) {
-        std::cout << "Failed on loading filename: " << fileName << std::endl;
-        exit(-1);
-    }
-    // else {
-    //     std::cout << "File name: " << fileName << std::endl;
-    // }
+Argmax::Argmax(const char* fileName, const std::string labelName, const std::string tagName) : mFileName(fileName) {
     
-    mLabel.open(labelName, std::ios_base::in);
-    if (!mLabel) {
+    std::ifstream label(labelName, std::ios_base::in);
+    if (!label) {
         std::cout << "Failed on loading filename: " << labelName << std::endl;
         exit(-1);
     }
@@ -26,20 +18,23 @@ Argmax::Argmax(const char* fileName, const std::string labelName, const std::str
     //     std::cout << "Label name: " << labelName << std::endl;
     // }
 
-    mTag.open(tagName, std::ios_base::in);
-    if (!mTag) {
+    mLabel = txtToVector(label);
+    label.close();
+
+    std::ifstream tag(tagName, std::ios_base::in);
+    if (!tag) {
         std::cout << "Failed on loading filename: " << tagName << std::endl;
         exit(-1);
     }
     // else {
     //     std::cout << "Tag name: " << tagName << std::endl;
     // }
+
+    mTag = txtToVector(tag);
+    tag.close();
 }
 
 Argmax::~Argmax() {
-    fclose(mFile);
-    mLabel.close();
-    mTag.close();
 }
 
 void Argmax::setIndex (const std::vector<float> &vec) {
@@ -57,6 +52,14 @@ void Argmax::printResult(const std::vector<std::string> &label, const std::vecto
     std::cout << "Classified as: " << label.at(getIndex()) << std::endl << std::endl;
 }
 
+int Argmax::getLabelSize() {
+    return mLabel.size();
+}
+
+int Argmax::getTagSize() {
+    return mTag.size();
+}
+
 std::vector<std::string> Argmax::txtToVector(std::ifstream &textFile) {
     std::string str;
     std::vector<std::string> vec;
@@ -67,21 +70,32 @@ std::vector<std::string> Argmax::txtToVector(std::ifstream &textFile) {
 }
 
 void Argmax::run() {
-    std::vector<std::string> label = txtToVector(mLabel);
-    std::vector<std::string> tag = txtToVector(mTag);
     std::vector<float> vec;
-    int classSize = label.size();
+    int classSize = getLabelSize();
     int count = 0;
     float c;
+
+    FILE *file = fopen(mFileName, "rb");
+    if (!file) {
+        std::cout << "Failed on loading filename: " << mFileName << std::endl;
+        exit(-1);
+    }
+    // else {
+    //     std::cout << "File name: " << mFileName << std::endl;
+    // }
+    
     std::cout << std::endl << "Classification Result" << std::endl;
     std::cout << "---------------------------------------------------------------" << std::endl << std::endl;
-    while (fread(&c, sizeof(float),1, mFile)) {
+
+    while (fread(&c, sizeof(float),1, file)) {
         vec.push_back(c);
         count++;
         if (count%classSize == 0) {
             setIndex(vec);
-            printResult(label, tag);
+            printResult(mLabel, mTag);
             vec.clear();
-         }
+        }
     }
+
+    fclose(file);
 }

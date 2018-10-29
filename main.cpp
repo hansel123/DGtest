@@ -1,6 +1,6 @@
 #include "DGtest.h"
-#include <string>
 #include "Argmax.h"
+#include <string>
 #include <iostream>
 
 int main(int argc, const char ** argv)
@@ -9,7 +9,7 @@ int main(int argc, const char ** argv)
     if(argc < 6) {
         printf(
             "\n"
-            "Usage: DGtest <weights.bin> <input-tensor> <output-tensor> <labels.txt> <batch-size> \n"
+            "Usage: DGtest <weights.bin> <input-tensor> <output-tensor> <labels.txt> <imagetag.txt> \n"
             "\n"
             "   <input-data-file>: is filename to initialize tensor\n"
             "\n"
@@ -23,12 +23,16 @@ int main(int argc, const char ** argv)
     std::string inputFile = argv[2];
     std::string outputFile = argv[3];
     std::string labelFile = argv[4];
-    std::string tagFile = argv[6];
-    int batchSize = atoi(argv[5]);
-    DGtest dgtest(weights, inputFile, outputFile, batchSize);
-    dgtest.runInference();
+    std::string tagFile = argv[5];
 
     Argmax argmax(outputFile.c_str(), labelFile, tagFile);
+    
+    int batchSize = argmax.getTagSize();
+
+    DGtest dgtest(weights, inputFile, outputFile, batchSize);
+    
+    dgtest.runInference();
+
     argmax.run();
 
     return 0;

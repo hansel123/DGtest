@@ -23,6 +23,16 @@ public:
     int getIndex ();
 
     /**
+     *  Get the size of the label file
+     */
+    int getLabelSize();
+
+    /**
+     *  Get the size of the label file
+     */
+    int getTagSize();
+
+    /**
      *  Prints out the result
      */
     void printResult(const std::vector<std::string> &list, const std::vector<std::string> &tag);
@@ -50,17 +60,17 @@ private:
     static int mCount;
 
     /**
-     *  File stream to open and read the tensor object
+     *  File name to open and read the tensor object
      */
-    FILE *mFile;
+    const char* mFileName;
 
     /**
      *  File stream to open and read the label text file
      */
-    std::ifstream mLabel;
+    std::vector<std::string> mLabel;
     
     /**
      *  File stream to open and read the tag text file
      */
-    std::ifstream mTag;
+    std::vector<std::string> mTag;
 };
