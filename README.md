@@ -16,7 +16,8 @@ The detailed explanation of preprocessing the images can be found at http://open
    Alternatively, you can simply run the [radeonInferenceInstaller](https://github.com/kiritigowda/help/tree/master/radeonInferenceInstaller#installer) which will install all the dependencies for MIOpen
 5. [OpenCV 3.1](https://opencv.org/opencv-3-1.html) or higher
 6. cmake git 
-             sudo apt-get install cmake git
+
+       sudo apt-get install cmake git
 
 ### Build using Cmake on Linux (Ubuntu 16.04 64bit)
      git clone https://github.com/hansely/DGtest.git
@@ -41,9 +42,10 @@ The detailed explanation of preprocessing the images can be found at http://open
          The text file containing each images' directories. It is created by the img2tensor.py. 
             
 ### Guideline for Image Preparation & Converting it to tensor
-    You can prepare your own handwritten digits by using the [ParseDigit](https://github.com/hansely/ParseDigit) program.
-    After the image preparation is done, convert it to a tensor using the python script in this repository
-         python img2tensor.py -d <image_directory> -i <imagetag.txt> -o <output_tensor.f32>
+You can prepare your own handwritten digits by using the [ParseDigit](https://github.com/hansely/ParseDigit) program.
+After the image preparation is done, convert it to a tensor using the python script in this repository
+
+    python img2tensor.py -d <image_directory> -i <imagetag.txt> -o <output_tensor.f32>
          
          1. <image_directory>
               Path to the diectory containing prepared images.
