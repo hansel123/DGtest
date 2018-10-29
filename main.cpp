@@ -9,11 +9,17 @@ int main(int argc, const char ** argv)
     if(argc < 6) {
         printf(
             "\n"
-            "Usage: DGtest <weights.bin> <input-tensor> <output-tensor> <labels.txt> <imagetag.txt> \n"
+            "Usage: DGtest [weights.bin] [input-tensor] [output-tensor] [labels.txt] [imagetag.txt] \n"
             "\n"
-            "   <input-data-file>: is filename to initialize tensor\n"
+            "   <weights.bin>: is the name of the weights file to be used for the inference."
+            "\n"
+            "   <input-tensor>: is filename to initialize tensor\n"
             "\n"
             "   <output-tensor>: is filename to write out the tensor"
+            "\n"
+            "   <labels.txt>: is the text file containing the labels of each classes\n"
+            "\n"
+            "   <iamgetag.txt>: is the text file contaning each images' directories"
             "\n"
         );
         return -1;
