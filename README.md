@@ -1,7 +1,6 @@
 # AMD DGtest
 
-The AMD ParseDigit is a useful tool for preparing image dataset for [MNIST](http://yann.lecun.com/exdb/mnist/). 
-The program will automatically detect digits from the input image, crop, and preprocess the images.
+The AMD DGtest is a tutorial program for those who are new to MIOpen & OpenVX. It runs inference on the [MNIST](http://yann.lecun.com/exdb/mnist/) dataset using MIOpen & OpenVx.
 
 ### Explanation
 The program uses opencv [MSER function](https://docs.opencv.org/3.1.0/d3/d28/classcv_1_1MSER.html) for detecting digits.
@@ -28,7 +27,7 @@ The detailed explanation of preprocessing the images can be found at http://open
      make
 
 ### Usage
-     Usage: ./DGtest <weights.bin> <input-tensor> <output-tensor> <labels.txt> <imagetag.txt> <batch-size> \n"
+     Usage: ./DGtest <weights.bin> <input-tensor> <output-tensor> <labels.txt> <imagetag.txt> \n"
      
      1. [weights.bin]
          The name of the weights file to be used for the inference. It is created by running caffemodel converter.
@@ -40,8 +39,6 @@ The detailed explanation of preprocessing the images can be found at http://open
          The text file containing the labels of each classes.
      5. [imagetag.txt]
          The text file containing each images' directories. It is created by the img2tensor.py. 
-     6. [batch-size]
-  
             
 ### Guideline for Image Preparation & Converting it to tensor
     You can prepare your own handwritten digits by using the [ParseDigit](https://github.com/hansely/ParseDigit) program.
