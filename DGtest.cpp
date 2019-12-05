@@ -1,14 +1,8 @@
 #include <iostream>
-#include <string>
-#include <unistd.h>
 #include <opencv2/opencv.hpp>
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
 #include <vx_ext_amd.h>
-#include <vx_amd_nn.h>
-
 #include "DGtest.h"
-#include "annmodule.h"
+
 using namespace cv;
 using namespace std;
 
@@ -26,7 +20,7 @@ static void VX_CALLBACK log_callback(vx_context context, vx_reference ref, vx_st
     }
 }
 
-DGtest::DGtest(const char* weights) :mWeights(weights) {
+DGtest::DGtest(const char* weights) {
     // create context, input, output, and graph
     mContext = vxCreateContext();
     vx_status status;
@@ -36,9 +30,6 @@ DGtest::DGtest(const char* weights) :mWeights(weights) {
         exit(-1);
     }
     vxRegisterLogCallback(mContext, log_callback, vx_false_e);
-
-    // load vx_nn kernels
-    //ERROR_CHECK_STATUS(vxLoadKernels(mContext, "vx_nn"));
 
     mGraph = vxCreateGraph(mContext);
     status = vxGetStatus((vx_reference)mGraph);

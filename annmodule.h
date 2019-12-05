@@ -28,7 +28,6 @@ THE SOFTWARE.
 #define included_file_annmodule_h
 
 #include <VX/vx.h>
-#include <map>
 
 ////
 // initialize graph neural network for inference

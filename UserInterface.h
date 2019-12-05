@@ -1,12 +1,6 @@
 #pragma once
- 
-#include <memory>
 
 #include <opencv2/opencv.hpp>
-#include <opencv2/core/core.hpp>
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
-
 #include "DGtest.h"
 
 struct CallbackData {

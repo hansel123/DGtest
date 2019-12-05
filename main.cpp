@@ -1,7 +1,3 @@
-#include <string>
-#include <iostream>
-// #include "DGtest.h"
-// #include "Argmax.h"
 #include "UserInterface.h"
 
 int main(int argc, const char ** argv)
@@ -12,13 +8,15 @@ int main(int argc, const char ** argv)
             "\n"
             "Usage: ./DGtest [weights.bin]\n"
             "\n"
-            "   <weights.bin>: is the name of the weights file to be used for the inference\n."
+            "   <weights.bin>: name of the weights file to be used for the inference\n."
             "\n"
         );
         return -1;
     }
+    
     const char* weights = argv[1];
     UserInterface UI(weights);
     UI.startUI();
+
     return 0;
 }

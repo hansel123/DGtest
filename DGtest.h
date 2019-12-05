@@ -20,7 +20,7 @@ private:
     /**
      *  Weights file name
      */
-    const char* mWeights;
+    // const char* mWeights;
 
     /**
      *  Context that will be used for the inference
