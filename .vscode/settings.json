@@ -21,6 +21,8 @@
         "cstdarg": "cpp",
         "cstddef": "cpp",
         "cstring": "cpp",
-        "ctime": "cpp"
+        "ctime": "cpp",
+        "ostream": "cpp",
+        "iostream": "cpp"
     }
 }
