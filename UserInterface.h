@@ -29,7 +29,7 @@ private:
     /**
      *  Progress window name for user interface
      */
-    cv::String mProgressWindow = "Progress window";
+    cv::String mProgressWindow = "DGtest";
 
     /**
      *  Digit detector

@@ -18,14 +18,13 @@ void UserInterface::startUI() {
     cvui::init(mProgressWindow);
     namedWindow(mWindow, CV_WINDOW_AUTOSIZE);
     moveWindow(mWindow, 700, 500);
-    moveWindow(mProgressWindow, 1000, 500);
-    
+    moveWindow(mProgressWindow, 1040, 500);
+
     Mat img(300, 300, CV_8UC3, Scalar(0, 0, 0));
+    copyMakeBorder(img, img, 20, 20, 20, 20, BORDER_CONSTANT, Scalar(255,255,255));
+		
     Mat progressImage(300, 250, CV_8UC3, Scalar(255, 255, 255));
-    // cvui::text(progressImage, 20, 100, "Top1", 0.5);
-    // cvui::text(progressImage, 20, 150, "Top2", 0.5);
-    // cvui::text(progressImage, 20, 200, "Top3", 0.5);
-    
+
     callbackData.image = img.clone();
     Mat cloneImg = progressImage.clone();
     setMouseCallback(mWindow, UserInterface::onMouse, &callbackData);
@@ -36,7 +35,6 @@ void UserInterface::startUI() {
 
     do {
         key = waitKey(20);
-        //key = waitKey();
         cvui::text(cloneImg, 75, 30, "Result", 1, 0x000000);
         if (cvui::button(cloneImg, 30, 250, 70, 25, "Clear")) {
             cloneImg = progressImage.clone();
@@ -45,7 +43,9 @@ void UserInterface::startUI() {
         }
         
         if (cvui::button(cloneImg, 140, 250, 70, 25, "Run")) {
-            mDetector->runInference(callbackData.image);
+            Mat crop = callbackData.image(Rect(20, 20, 300, 300));
+            mDetector->runInference(crop);
+            cloneImg = progressImage.clone();
             cvui::text(cloneImg, 80, 100, to_string(mDetector->getResult()), 5, 0x0000ff);
         }
 

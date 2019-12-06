@@ -70,15 +70,14 @@ DGtest::DGtest(const char* weights) {
 };
 
 DGtest::~DGtest(){
+
     //release the tensors
     ERROR_CHECK_STATUS(vxReleaseTensor(&mInputTensor));
     ERROR_CHECK_STATUS(vxReleaseTensor(&mOutputTensor));
-    
     //release the graph
     ERROR_CHECK_STATUS(vxReleaseGraph(&mGraph));
-    
     // release context
-    ERROR_CHECK_STATUS(vxReleaseContext(&mContext));
+    //ERROR_CHECK_STATUS(vxReleaseContext(&mContext));
 };
 
 int DGtest::runInference(Mat &image) {
@@ -105,7 +104,6 @@ int DGtest::runInference(Mat &image) {
         return -1;
     }
     
-    // imshow("Image", img);
     for(size_t n = 0; n < dims[3]; n++) {
         for(vx_size y = 0; y < dims[1]; y++) {
             unsigned char * src = img.data + y*dims[0]*3;
@@ -138,11 +136,6 @@ int DGtest::runInference(Mat &image) {
         std::cerr << "ERROR: vxMapTensorPatch() failed for "  << std::endl;
         return -1;
     }
-    // float *outputBuffer = new float[10];
-    // memcpy(outputBuffer, ptr, (10*sizeof(float)));
-    // for (int i=0; i<10; i++) {
-    //     cout << (float)ptr[i] << endl;
-    // }
 
     mDigit = std::distance(ptr, std::max_element(ptr, ptr + 10));
 
