@@ -105,7 +105,7 @@ int DGtest::runInference(Mat &image) {
         return -1;
     }
     
-    imshow("Image", img);
+    // imshow("Image", img);
     for(size_t n = 0; n < dims[3]; n++) {
         for(vx_size y = 0; y < dims[1]; y++) {
             unsigned char * src = img.data + y*dims[0]*3;
@@ -133,25 +133,27 @@ int DGtest::runInference(Mat &image) {
         return -1;
     }
 
-    vxQueryTensor(mOutputTensor, VX_TENSOR_DIMS, &dims, sizeof(dims[0])*4);
-    
-    count = dims[0] * dims[1] * dims[2] * dims[3];
     status = vxMapTensorPatch(mOutputTensor, 4, nullptr, nullptr, &map_id, stride, (void **)&ptr, VX_READ_ONLY, VX_MEMORY_TYPE_HOST, 0);
     if(status) {
         std::cerr << "ERROR: vxMapTensorPatch() failed for "  << std::endl;
         return -1;
     }
-    const int N = 10;
-    float *outputBuffer = new float[N];
-    memcpy(outputBuffer, ptr, (count*sizeof(float)));
+    // float *outputBuffer = new float[10];
+    // memcpy(outputBuffer, ptr, (10*sizeof(float)));
+    // for (int i=0; i<10; i++) {
+    //     cout << (float)ptr[i] << endl;
+    // }
+
+    mDigit = std::distance(ptr, std::max_element(ptr, ptr + 10));
+
     status = vxUnmapTensorPatch(mOutputTensor, map_id);
     if(status) {
         std::cerr << "ERROR: vxUnmapTensorPatch() failed for "  << std::endl;
         return -1;
     }
-
-    int maxID = std::distance(outputBuffer, std::max_element(outputBuffer, outputBuffer + N));
-    cout << maxID << endl;
-
     return 0;
+}
+
+int DGtest::getResult() {
+    return mDigit;
 }

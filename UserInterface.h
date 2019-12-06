@@ -24,9 +24,15 @@ private:
     /**
      *  Main window name for user interface
      */
-    cv::String mWindow = "Display window";
+    cv::String mWindow = "Palette";
 
-    cv::Mat mImage;
+    /**
+     *  Progress window name for user interface
+     */
+    cv::String mProgressWindow = "Progress window";
 
+    /**
+     *  Digit detector
+     */
     std::unique_ptr<DGtest> mDetector;
 };

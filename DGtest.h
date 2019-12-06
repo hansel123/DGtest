@@ -15,12 +15,17 @@ public:
      */
     int runInference(cv::Mat &image); 
 
+    /**
+     *  Get the inference result
+     */
+    int getResult(); 
+
 private:
 
     /**
-     *  Weights file name
+     *  Inference result
      */
-    // const char* mWeights;
+    int mDigit;
 
     /**
      *  Context that will be used for the inference

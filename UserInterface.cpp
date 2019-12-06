@@ -1,4 +1,7 @@
+#include <string>
 #include "UserInterface.h"
+#define CVUI_IMPLEMENTATION
+#include "cvui.h"
 
 using namespace cv;
 using namespace std;
@@ -12,30 +15,48 @@ UserInterface::~UserInterface() {}
 void UserInterface::startUI() {
     CallbackData callbackData;
     callbackData.windowName = mWindow;
-    Mat img(400, 400, CV_8UC3, Scalar(0, 0, 0));
-
-    callbackData.image = img.clone();
+    cvui::init(mProgressWindow);
     namedWindow(mWindow, CV_WINDOW_AUTOSIZE);
+    moveWindow(mWindow, 700, 500);
+    moveWindow(mProgressWindow, 1000, 500);
+    
+    Mat img(300, 300, CV_8UC3, Scalar(0, 0, 0));
+    Mat progressImage(300, 250, CV_8UC3, Scalar(255, 255, 255));
+    // cvui::text(progressImage, 20, 100, "Top1", 0.5);
+    // cvui::text(progressImage, 20, 150, "Top2", 0.5);
+    // cvui::text(progressImage, 20, 200, "Top3", 0.5);
+    
+    callbackData.image = img.clone();
+    Mat cloneImg = progressImage.clone();
     setMouseCallback(mWindow, UserInterface::onMouse, &callbackData);
+    
     imshow(callbackData.windowName, callbackData.image);
+    
     int key;
+
     do {
-        key = waitKey();
-        switch (key) {
-            
-        case 'r':
-        case 'R':
-            mDetector->runInference(callbackData.image);
-            break;
-        case 'c':
-        case 'C':
+        key = waitKey(20);
+        //key = waitKey();
+        cvui::text(cloneImg, 75, 30, "Result", 1, 0x000000);
+        if (cvui::button(cloneImg, 30, 250, 70, 25, "Clear")) {
+            cloneImg = progressImage.clone();
             callbackData.image = img.clone();
-            imshow(callbackData.windowName, callbackData.image);
-            break;
+            imshow(mWindow, callbackData.image);
         }
+        
+        if (cvui::button(cloneImg, 140, 250, 70, 25, "Run")) {
+            mDetector->runInference(callbackData.image);
+            cvui::text(cloneImg, 80, 100, to_string(mDetector->getResult()), 5, 0x0000ff);
+        }
+
+        // Update cvui internal stuff
+        cvui::update();
+        // Show window content
+        cvui::imshow(mProgressWindow, cloneImg);
+        
     } while (key != 27);
 
-    destroyWindow(mWindow);
+    destroyAllWindows();
 }
 
 void UserInterface::onMouse(int event, int x, int y, int, void *data) {
@@ -63,7 +84,7 @@ void UserInterface::onMouse(int event, int x, int y, int, void *data) {
             imshow(callbackData->windowName, callbackData->image);
         }
         break;
-        
+
     default:
         break;
     }
