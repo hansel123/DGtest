@@ -29,9 +29,7 @@ public:
 
 private:
 
-    /**/**
-     * Constructor
-     */
+    /**
      *  Inference result
      */
     int mDigit;
