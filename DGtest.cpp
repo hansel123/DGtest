@@ -70,13 +70,10 @@ DGtest::DGtest(const char* weights) {
 };
 
 DGtest::~DGtest(){
-    cout << "releasing input tensor" << endl;
     //release the tensors
     ERROR_CHECK_STATUS(vxReleaseTensor(&mInputTensor));
-    cout << "releasing output tensor" << endl;
     ERROR_CHECK_STATUS(vxReleaseTensor(&mOutputTensor));
     //release the graph
-    cout << "releasing graph" << endl;
     ERROR_CHECK_STATUS(vxReleaseGraph(&mGraph));
     // release context
     ERROR_CHECK_STATUS(vxReleaseContext(&mContext));
@@ -86,6 +83,8 @@ int DGtest::runInference(Mat &image) {
     
     Mat img = image.clone();
     
+    cvtColor(img, img, CV_BGR2GRAY);
+
 	resize(img, img, Size(24, 24));
     
 	dilate(img, img, Mat::ones(2,2,CV_8U)); 
@@ -106,17 +105,11 @@ int DGtest::runInference(Mat &image) {
         return -1;
     }
     
-    for(size_t n = 0; n < dims[3]; n++) {
-        for(vx_size y = 0; y < dims[1]; y++) {
-            unsigned char * src = img.data + y*dims[0]*3;
-            float * dstR = ptr + ((n * stride[3] + y * stride[1]) >> 2);
-            float * dstG = dstR + (stride[2] >> 2);
-            float * dstB = dstG + (stride[2] >> 2);
-            for(vx_size x = 0; x < dims[0]; x++, src += 3) {
-                *dstR++ = src[2] ;
-                *dstG++ = src[1] ;
-                *dstB++ = src[0] ;
-            }
+    for(vx_size y = 0; y < dims[1]; y++) {
+        unsigned char * src = img.data + y*dims[0]*dims[2];
+        float * dst = ptr + ((y * stride[1]) >> 2);
+        for(vx_size x = 0; x < dims[0]; x++, src ++) {
+            *dst++ = src[0] ;
         }
     }
 
