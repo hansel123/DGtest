@@ -1,6 +1,6 @@
-# AMD DGtest
+# MIVisionX DGtest
 
-The AMD DGtest is a tutorial program for those who are new to MIOpen & OpenVX. It runs inference on the [MNIST](http://yann.lecun.com/exdb/mnist/) dataset using MIOpen & OpenVX.
+MIVisionX DGtest is a tutorial program for those who are new to MIOpen & OpenVX. It runs inference on the [MNIST](http://yann.lecun.com/exdb/mnist/) dataset using MIOpen & OpenVX.
 
 ### Explanation
 The program is divided into four parts:
