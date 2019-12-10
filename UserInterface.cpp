@@ -21,9 +21,9 @@ void UserInterface::startUI() {
     moveWindow(mProgressWindow, 1040, 500);
 
     Mat img(300, 300, CV_8UC3, Scalar(0, 0, 0));
-    copyMakeBorder(img, img, 20, 20, 20, 20, BORDER_CONSTANT, Scalar(255,255,255));
+    copyMakeBorder(img, img, 20, 20, 20, 20, BORDER_CONSTANT, Scalar(69,51,0));
 		
-    Mat progressImage(300, 250, CV_8UC3, Scalar(255, 255, 255));
+    Mat progressImage(300, 250, CV_8UC3, Scalar(223, 223, 223));
 
     callbackData.image = img.clone();
     Mat cloneImg = progressImage.clone();

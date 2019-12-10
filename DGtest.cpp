@@ -70,14 +70,16 @@ DGtest::DGtest(const char* weights) {
 };
 
 DGtest::~DGtest(){
-
+    cout << "releasing input tensor" << endl;
     //release the tensors
     ERROR_CHECK_STATUS(vxReleaseTensor(&mInputTensor));
+    cout << "releasing output tensor" << endl;
     ERROR_CHECK_STATUS(vxReleaseTensor(&mOutputTensor));
     //release the graph
+    cout << "releasing graph" << endl;
     ERROR_CHECK_STATUS(vxReleaseGraph(&mGraph));
     // release context
-    //ERROR_CHECK_STATUS(vxReleaseContext(&mContext));
+    ERROR_CHECK_STATUS(vxReleaseContext(&mContext));
 };
 
 int DGtest::runInference(Mat &image) {
