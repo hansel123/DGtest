@@ -34,6 +34,8 @@ void UserInterface::startUI() {
     
     int key;
 
+    cout << endl << "Press ESC to exit" << endl;
+
     do {
         key = waitKey(20);
         cvui::text(cloneImg, 75, 30, "Result", 1, 0x000000);
