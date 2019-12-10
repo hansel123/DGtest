@@ -7,6 +7,7 @@ using namespace cv;
 using namespace std;
 
 UserInterface::UserInterface(const char* weights) {
+    // constructs a DGtest detector 
     mDetector = make_unique<DGtest>(weights);
 }
 

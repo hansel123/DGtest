@@ -21,7 +21,7 @@ static void VX_CALLBACK log_callback(vx_context context, vx_reference ref, vx_st
 }
 
 DGtest::DGtest(const char* weights) {
-    // create context, input, output, and graph
+    // create contex
     mContext = vxCreateContext();
     vx_status status;
     status = vxGetStatus((vx_reference)mContext);
@@ -31,6 +31,7 @@ DGtest::DGtest(const char* weights) {
     }
     vxRegisterLogCallback(mContext, log_callback, vx_false_e);
 
+    // create graph
     mGraph = vxCreateGraph(mContext);
     status = vxGetStatus((vx_reference)mGraph);
     if(status) {
@@ -46,7 +47,7 @@ DGtest::DGtest(const char* weights) {
         exit(-1);
     }
     
-    // create output tensor prob
+    // create and initialize output tensor data
     vx_size output_dims[4] = { 1, 1, 10, 1 };
     mOutputTensor = vxCreateTensor(mContext, 4, output_dims, VX_TYPE_FLOAT32, 0);
     if(vxGetStatus((vx_reference)mOutputTensor)) {
@@ -83,23 +84,28 @@ int DGtest::runInference(Mat &image) {
     
     Mat img = image.clone();
     
+    // convert to grayscale image
     cvtColor(img, img, CV_BGR2GRAY);
 
+    // resize to 24 x 24 
 	resize(img, img, Size(24, 24));
     
+    // dilate image
 	dilate(img, img, Mat::ones(2,2,CV_8U)); 
     
+    // add border to the image so that the digit will go center and become 28 x 28 image
     copyMakeBorder(img, img, 2, 2, 2, 2, BORDER_CONSTANT, Scalar(0,0,0));
 		
     vx_size dims[4] = { 1, 1, 1, 1 }, stride[4];
+    vx_status status;
     vx_map_id map_id;
     float * ptr;
-    vx_size count;
-    
+
+    // query tensor for the dimension    
     vxQueryTensor(mInputTensor, VX_TENSOR_DIMS, &dims, sizeof(dims[0])*4);
  
-    count = dims[0] * dims[1] * dims[2] * dims[3];
-    vx_status status = vxMapTensorPatch(mInputTensor, 4, nullptr, nullptr, &map_id, stride, (void **)&ptr, VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST, 0);
+    // copy image to input tensor
+    status = vxMapTensorPatch(mInputTensor, 4, nullptr, nullptr, &map_id, stride, (void **)&ptr, VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST, 0);
     if(status) {
         std::cerr << "ERROR: vxMapTensorPatch() failed for " <<  std::endl;
         return -1;
@@ -126,6 +132,7 @@ int DGtest::runInference(Mat &image) {
         return -1;
     }
 
+    // get the output result from output tensor
     status = vxMapTensorPatch(mOutputTensor, 4, nullptr, nullptr, &map_id, stride, (void **)&ptr, VX_READ_ONLY, VX_MEMORY_TYPE_HOST, 0);
     if(status) {
         std::cerr << "ERROR: vxMapTensorPatch() failed for "  << std::endl;

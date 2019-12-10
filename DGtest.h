@@ -7,7 +7,14 @@
 class DGtest
 {
 public:
+    /**
+     * Constructor
+     */
     DGtest(const char* weights);
+
+    /**
+     * Destructor
+     */
     ~DGtest();
 
     /**
@@ -22,7 +29,9 @@ public:
 
 private:
 
-    /**
+    /**/**
+     * Constructor
+     */
      *  Inference result
      */
     int mDigit;

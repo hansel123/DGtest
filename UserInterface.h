@@ -13,11 +13,24 @@ struct CallbackData {
 class UserInterface
 {
 public:
-
+    /**
+     * Constructor
+     */
     UserInterface(const char* weights);
+    
+    /**
+     * Destructor
+     */
     ~UserInterface();
 
+    /**
+     * Starts the UI
+     */
     void startUI();
+
+    /**
+     * Mouse function for drawing
+     */
     static void onMouse(int event, int x, int y, int, void*);
  
 private:
